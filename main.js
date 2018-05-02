@@ -1,10 +1,17 @@
+var table;
+var dealer;
 window.onload = function() {
-  var table = new Table();
+  table = new Table();
   table.draw_table();
 
-  var dealer = new Dealer(3);
-  dealer.deal();
-  dealer.flop();
+  $("button#start").click(function() {
+    dealer = new Dealer($("#playersCount").val());
+    dealer.deal();
+    table.put_cards(dealer.board, dealer.players);
+  });
 
-  table.put_cards(dealer.board, dealer.players);
+  $("button#next").click(function() {
+    dealer.flop();
+    table.put_cards(dealer.board, dealer.players);
+  });
 }

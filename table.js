@@ -4,6 +4,10 @@ class Table {
     this.context = canvas.getContext('2d');
   }
 
+  clear_table() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
   draw_table() {
     var x = 0;
     var y = 0;
@@ -28,14 +32,17 @@ class Table {
   }
 
   put_cards(board, players) {
+    this.clear_table();
+    this.draw_table();
+
     var context = this.context;
     var playerCardPositions = [
-      {x: 665, y: 100}, {x: 665, y: 230},
-      {x: 575, y: 380}, {x: 415, y: 380}, {x: 255, y: 380}, {x: 95, y: 380},
+      {x: 645, y: 100}, {x: 645, y: 230},
+      {x: 540, y: 380}, {x: 350, y: 380}, {x: 150, y: 380},
       {x: 10, y: 100}, {x: 10, y: 230},
     ];
-    var w  = 60;
-    var h = 90;
+    var w  = 70;
+    var h = 105;
 
     var playerCards = [];
     for (var i = 0; i < players.length; i++) {
@@ -49,7 +56,7 @@ class Table {
     }
 
     var boardCards = [];
-    var boardCardPostion = {x: 490, y: 170};
+    var boardCardPostion = {x: 525, y: 170};
     for (var i = 0; i < board.cards.length; i++) {
       var x = boardCardPostion.x;
       var y = boardCardPostion.y;
