@@ -31,7 +31,7 @@ class Table {
     context.fill();
   }
 
-  put_cards(board, players) {
+  put_cards(board, players, show=false) {
     this.clear_table();
     this.draw_table();
 
@@ -49,8 +49,13 @@ class Table {
       var x = playerCardPositions[i].x;
       var y = playerCardPositions[i].y;
       playerCards[i] = [new Image(), new Image()];
-      playerCards[i][0].src = "./cards/" + players[i].cards[0] + ".gif";
-      playerCards[i][1].src = "./cards/" + players[i].cards[1] + ".gif";
+      if (i == (players.length - 1) || show) {
+        playerCards[i][0].src = "./cards/" + players[i].cards[0] + ".gif";
+        playerCards[i][1].src = "./cards/" + players[i].cards[1] + ".gif";
+      } else {
+        playerCards[i][0].src = "./cards/z02.gif";
+        playerCards[i][1].src = "./cards/z02.gif";
+      }
       playerCards[i][0].onload = this.imageLoadCallback(context, playerCards[i][0], x, y, w, h);
       playerCards[i][1].onload = this.imageLoadCallback(context, playerCards[i][1], x+5+w, y, w, h);
     }
@@ -70,8 +75,5 @@ class Table {
     return function () {
       context.drawImage(img, x, y, w, h);
     }
-  }
-
-  clear_table() {
   }
 }

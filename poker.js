@@ -30,6 +30,7 @@ class Player {
     this.is_button = false;
     this.is_sb = false;
     this.is_bb = false;
+    this.show_card = false;
   }
 
   receive_card(card) {
