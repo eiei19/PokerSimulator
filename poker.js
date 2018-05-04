@@ -124,6 +124,7 @@ class Dealer {
         this.players[j].receive_card(card);
       }
     }
+    this.calcWinRate(3);
   }
 
   flop() {
