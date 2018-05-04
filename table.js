@@ -4,11 +4,11 @@ class Table {
     this.context = canvas.getContext('2d');
 
     var cards = [
-      "s01", "s02", "s03", "s04", "s05", "s06", "s07", "s08", "s09", "s10", "s11", "s12", "s13",
-      "c01", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "c11", "c12", "c13",
-      "h01", "h02", "h03", "h04", "h05", "h06", "h07", "h08", "h09", "h10", "h11", "h12", "h13",
-      "d01", "d02", "d03", "d04", "d05", "d06", "d07", "d08", "d09", "d10", "d11", "d12", "d13",
-      "z02",
+      "As", "2s", "3s", "4s", "5s", "6s", "7s", "8s", "9s", "Ts", "Js", "Qs", "Ks",
+      "Ac", "2c", "3c", "4c", "5c", "6c", "7c", "8c", "9c", "Tc", "Jc", "Qc", "Kc",
+      "Ah", "2h", "3h", "4h", "5h", "6h", "7h", "8h", "9h", "Th", "Jh", "Qh", "Kh",
+      "Ad", "2d", "3d", "4d", "5d", "6d", "7d", "8d", "9d", "Td", "Jd", "Qd", "Kd",
+      "hidden",
     ];
     this.cards = {};
     for (var i = 0; i < cards.length; i++) {
@@ -64,8 +64,8 @@ class Table {
       var y = playerCardPositions[i].y;
       playerCards[i] = [new Image(), new Image()];
 
-      var card1 = "z02";
-      var card2 = "z02";
+      var card1 = "hidden";
+      var card2 = "hidden";
       if (i == (players.length - 1) || show) {
         card1 = players[i].cards[0];
         card2 = players[i].cards[1];
