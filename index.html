@@ -5,6 +5,7 @@
   <title>Poker Simulator</title>
   <link rel="stylesheet" type="text/css" href="./index.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./pokersolver.js"></script>
   <script type="text/javascript" src="./poker.js"></script>
   <script type="text/javascript" src="./table.js"></script>
   <script type="text/javascript" src="./game.js"></script>
@@ -13,7 +14,14 @@
   <p>Poker Simulator</p>
   <canvas id="canvas" height="500" width="800"></canvas>
   <p>
-    <input id="playersCount" type="text" placeholder="プレイ人数" />
+    <select id="playersCount" name="playersCount">
+      <option value="2">2 PLAYERS</option>
+      <option value="3">3 PLAYERS</option>
+      <option value="4">4 PLAYERS</option>
+      <option value="5">5 PLAYERS</option>
+      <option value="6">6 PLAYERS</option>
+      <option value="7">7 PLAYERS</option>
+    </select>
     <button id="next">START</button>
     <button id="card">SHOW THE CARDS</button>
   </p>
