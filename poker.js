@@ -31,6 +31,8 @@ class Player {
     this.is_sb = false;
     this.is_bb = false;
     this.show_card = false;
+    this.winCount = 0;
+    this.winRate = null;
   }
 
   receive_card(card) {
@@ -54,6 +56,8 @@ class Player {
     this.is_sb = false;
     this.is_bb = false;
     this.cards = [];
+    this.winCount = 0;
+    this.winRate = null;
   }
 }
 
@@ -126,14 +130,61 @@ class Dealer {
     for (var i = 0; i < 3; i++) {
       this.board.receive_card(this.deck.get_card());
     }
+    this.calcWinRate(2);
   }
 
   turn() {
     this.board.receive_card(this.deck.get_card());
+    this.calcWinRate(1);
   }
 
   river() {
     this.board.receive_card(this.deck.get_card());
+    this.setWinner();
+  }
+
+  calcWinRate(card_count) {
+    for (var i = 0; i < this.players.length; i++) {
+      this.players[i].winCount = 0;
+    }
+    var cmb = Combinatorics.bigCombination(this.deck.cards, card_count);
+    var c;
+    while(c = cmb.next()) {
+      var players_hands = [];
+      for (var i = 0; i < this.players.length; i++) {
+        var cards = this.board.cards.concat(this.players[i].cards).concat(c);
+        var hand = Hand.solve(cards);
+        hand.player_index = i;
+        players_hands[i] = hand;
+      }
+      var winners = Hand.winners(players_hands);
+
+      for (var i = 0; i < winners.length; i++) {
+        var winner = winners[i];
+        this.players[winner.player_index].winCount++;
+      }
+    }
+
+    for (var i = 0; i < this.players.length; i++) {
+      var rate = Math.round((this.players[i].winCount / cmb.length)*100);
+      this.players[i].winRate = rate + "%";
+    }
+  }
+
+  setWinner() {
+    var players_hands = [];
+    for (var i = 0; i < this.players.length; i++) {
+      this.players[i].winRate = "";
+      var cards = this.board.cards.concat(this.players[i].cards);
+      var hand = Hand.solve(cards);
+      hand.player_index = i;
+      players_hands[i] = hand;
+    }
+    var winners = Hand.winners(players_hands);
+    for (var i = 0; i < winners.length; i++) {
+      var winner = winners[i];
+      this.players[winner.player_index].winRate = "WIN";
+    }
   }
 
   end_the_hand() {

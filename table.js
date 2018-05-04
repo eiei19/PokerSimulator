@@ -50,6 +50,8 @@ class Table {
     this.draw_table();
 
     var context = this.context;
+    context.font = "bold 14px 'ＭＳ Ｐゴシック'";
+    context.fillStyle = "#FFF";
     var playerCardPositions = [
       {x: 645, y: 100}, {x: 645, y: 230},
       {x: 540, y: 380}, {x: 350, y: 380}, {x: 150, y: 380},
@@ -58,11 +60,9 @@ class Table {
     var w  = 70;
     var h = 105;
 
-    var playerCards = [];
     for (var i = 0; i < players.length; i++) {
       var x = playerCardPositions[i].x;
       var y = playerCardPositions[i].y;
-      playerCards[i] = [new Image(), new Image()];
 
       var card1 = "hidden";
       var card2 = "hidden";
@@ -72,6 +72,10 @@ class Table {
       }
       context.drawImage(this.cards[card1], x, y, w, h);
       context.drawImage(this.cards[card2], x+5+w, y, w, h);
+
+      if (players[i].winRate && show) {
+        context.fillText(players[i].winRate, x, y-2);
+      }
     }
 
     var boardCards = [];
@@ -79,15 +83,7 @@ class Table {
     for (var i = 0; i < board.cards.length; i++) {
       var x = boardCardPostion.x;
       var y = boardCardPostion.y;
-      boardCards[i] = new Image();
-      boardCards[i].src = "./cards/" + board.cards[i] + ".gif";
-      boardCards[i].onload = this.imageLoadCallback(context, boardCards[i], x-(w+5)*i, y, w, h);
-    }
-  }
-
-  imageLoadCallback(context, img, x, y, w, h) {
-    return function () {
-      context.drawImage(img, x, y, w, h);
+      context.drawImage(this.cards[board.cards[i]], x-(w+5)*i, y, w, h);
     }
   }
 }
