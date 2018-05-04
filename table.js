@@ -74,7 +74,7 @@ class Table {
       context.drawImage(this.cards[card2], x+5+w, y, w, h);
 
       if (players[i].winRate && show) {
-        context.fillText(players[i].winRate, x, y-2);
+        context.fillText(players[i].winRate, x+4, y-2);
       }
     }
 
